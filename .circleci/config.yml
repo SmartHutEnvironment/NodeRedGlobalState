@@ -7,7 +7,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker run --name tmp -v .:/data kezziny/node-red-module-generator:latest
+      - run: docker run --name tmp -v ${pwd}:/data kezziny/node-red-module-generator:latest
   integration:
     machine: true
     steps:
@@ -17,15 +17,7 @@ workflows:
   version: 2
   integrate:
     jobs:
-      - start_build:
-          filters:
-            branches:
-              ignore:
-                - master
-          type: approval
       - build:
-          requires:
-            - start_build
       - start_integration:
           type: approval
       - integration:
