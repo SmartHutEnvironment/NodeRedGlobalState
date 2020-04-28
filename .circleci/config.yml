@@ -4,9 +4,10 @@ defaults: &defaults
 version: 2
 jobs:
   build:
-    docker: kezziny/node-red-module-generator:latest
+    machine: true
     steps:
       - checkout
+      - run: docker run kezziny/node-red-module-generator:latest
       - run: pwd
   integration:
     machine: true
