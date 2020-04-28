@@ -8,11 +8,24 @@ jobs:
     steps:
       - checkout
       - run: docker run --name tmp -v $(pwd):/data kezziny/node-red-module-generator:latest
+      - persist_to_workspace:
+          root: ~/build
+          paths: ./lib
   integration:
     machine: true
     steps:
       - checkout
       - run: .circleci/integrate.sh
+  deploy:
+    steps:
+      - attach_workspace:
+          at: ~/build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
 workflows:
   version: 2
   integrate:
@@ -22,6 +35,9 @@ workflows:
               branches:
                 ignore:
                   - master
+      - deploy:
+          requires:
+            - build
       - start_integration:
           type: approval
       - integration:
