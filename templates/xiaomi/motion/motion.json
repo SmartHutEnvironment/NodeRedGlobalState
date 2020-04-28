@@ -1,0 +1,15 @@
+{
+    "id": "fk-xiaomi-motion",
+    "className": "XiaomiMotion",
+    "name": "Motion detector",
+    "config": {
+        "category": "Xiaomi",
+        "outputs": 4,
+        "fields": [
+            { "id": "mqtt", "label": "Mqtt server", "type": "text", "required": true, "dataType": "fk-mqtt"},
+            { "id": "motionState", "label": "Motion state", "type": "text", "required": false, "dataType": "fk-state"},
+            { "id": "topic", "label": "Topic", "type": "text", "required": true, "default": "what"}
+        ]
+    },
+    "help": "Help..."
+}

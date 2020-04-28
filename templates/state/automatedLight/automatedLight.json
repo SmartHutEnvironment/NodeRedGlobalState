@@ -1,0 +1,18 @@
+{
+    "id": "fk-automated-light",
+    "className": "AutomatedLight",
+    "name": "Automated light",
+    "config": {
+        "category": "Automation",
+        "fields": [
+            { "id": "trigger", "label": "Trigger", "type": "text", "required": true, "dataType": "fk-state"},
+            { "id": "light", "label": "Light", "type": "text", "required": true, "dataType": "fk-state"},
+            { "id": "forced", "label": "Forced state", "type": "text", "dataType": "fk-state"},
+            { "id": "condition", "label": "Condition", "type": "text", "dataType": "fk-state"}
+        ],
+        "outputs": 2,
+        "color": "#FFCC00",
+        "icon": "font-awesome/fa-database"
+    },
+    "help": "Help..."
+}

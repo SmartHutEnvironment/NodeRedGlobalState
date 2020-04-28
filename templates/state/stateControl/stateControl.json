@@ -1,0 +1,15 @@
+{
+    "id": "fk-state-control",
+    "className": "StateChangedd",
+    "name": "State control",
+    "config": {
+        "category": "Global state",
+        "fields": [
+            { "id": "state1", "label": "Trigger", "type": "text", "required": true, "dataType": "fk-state"},
+            { "id": "state2", "label": "Light", "type": "text", "required": true, "dataType": "fk-state"}
+        ],
+        "color": "#FFCC00",
+        "icon": "font-awesome/fa-database"
+    },
+    "help": "Help..."
+}

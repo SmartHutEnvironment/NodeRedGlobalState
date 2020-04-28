@@ -1,0 +1,16 @@
+{
+    "id": "fk-timer",
+    "className": "Timer",
+    "name": "Timer",
+    "config": {
+        "category": "function",
+        "outputs": 1,
+        "inputs": 1,
+        "fields": [
+            { "id": "timeout", "label": "Timeout (sec)", "type": "number", "required": true}
+        ],
+        "icon": "font-awesome/fa-clock",
+        "color": "#FFCC66"
+    },
+    "help": "Help..."
+}

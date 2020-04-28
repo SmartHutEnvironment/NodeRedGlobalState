@@ -1,0 +1,17 @@
+{
+    "id": "fk-xiaomi-double-switch",
+    "className": "XiaomiDoubleSwitch",
+    "name": "Double wall switch",
+    "config": {
+        "category": "Xiaomi",
+        "outputs": 10,
+        "inputs": 1,
+        "fields": [
+            { "id": "mqtt", "label": "Mqtt server", "type": "text", "required": true, "dataType": "fk-mqtt"},
+            { "id": "topic", "label": "Topic", "type": "text", "required": true, "default": "what"},
+            { "id": "switchLeftState", "label": "Switch left state", "type": "text", "required": false, "dataType": "fk-state"},
+            { "id": "switchRightState", "label": "Switch right state", "type": "text", "required": false, "dataType": "fk-state"}
+        ]
+    },
+    "help": "Help..."
+}

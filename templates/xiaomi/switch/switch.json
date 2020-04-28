@@ -1,0 +1,16 @@
+{
+    "id": "fk-xiaomi-switch",
+    "className": "XiaomiSwitch",
+    "name": "Wall switch",
+    "config": {
+        "category": "Xiaomi",
+        "outputs": 7,
+        "inputs": 1,
+        "fields": [
+            { "id": "mqtt", "label": "Mqtt server", "type": "text", "required": true, "dataType": "fk-mqtt"},
+            { "id": "topic", "label": "Topic", "type": "text", "required": true, "default": "what"},
+            { "id": "switchState", "label": "Switch state", "type": "text", "required": false, "dataType": "fk-state"}
+        ]
+    },
+    "help": "Help..."
+}

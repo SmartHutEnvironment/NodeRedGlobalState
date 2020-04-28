@@ -1,0 +1,18 @@
+{
+    "id": "fk-set-state",
+    "className": "SetState",
+    "name": "Set state",
+    "config": {
+        "category": "Global state",
+        "inputs": 1,
+        "outputs": 1,
+        "fields": [
+            { "id": "state", "label": "State", "type": "text", "required": true, "dataType": "fk-state"}
+        ],
+        "onSave": "function () { this.name = $('#node-input-state option:selected').text(); }",
+        "label": "function () { return this.name ? 'Set ' + this.name : 'Set state'; }",
+        "color": "#FFCC00",
+        "icon": "font-awesome/fa-database"
+    },
+    "help": "Help..."
+}

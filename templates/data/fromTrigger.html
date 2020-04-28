@@ -1,0 +1,51 @@
+<!-- Registration -->
+<script type="text/javascript">
+  RED.nodes.registerType('bridge-by-state',{
+      category: 'common',     // Palette category
+      defaults: {             // Editable properties
+        state: {type:"global-state", required:true},
+        name: {value:""},
+        triggerOnInit: {value:true},
+      },
+      inputs: 1,
+      outputs: 1,
+
+      icon: 'font-awesome/fa-sign-out',
+
+      color: '#C7E9C0',
+
+      align: 'left',
+
+      label: function() {
+        return this.name ? this.name : 'Bridge by state';
+      },
+      paletteLabel: function() {
+        return 'Bridge by state';
+      },
+      labelStyle: function() {
+        return this.state ? "node_label_italic" : "";
+      },
+      oneditsave: function() {
+        this.name = $('#node-input-state option:selected').text();
+      },
+
+  });
+</script>
+
+<!-- Properties Editor -->
+<script type="text/x-red" data-template-name="bridge-by-state">
+<div class="form-row">
+    <label for="node-input-state"><i style="width:20px; text-align:left;" class="fa fa-sign-out"></i> State</label>
+    <input type="text" id="node-input-state">
+</div>
+
+<div class="form-row">
+    <label for="node-input-triggerOnInit">&nbsp;</label>
+    <input type="checkbox" id="node-input-triggerOnInit" style="display:inline-block; width:15px; vertical-align:baseline;">
+    <span>Trigger on init</span>&nbsp;
+</div>
+</script>
+
+<script type="text/x-red" data-help-name="bridge-by-state">
+Help...
+</script>
