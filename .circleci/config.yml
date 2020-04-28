@@ -17,6 +17,8 @@ jobs:
       - checkout
       - run: .circleci/integrate.sh
   deploy:
+    docker:
+      - image: circleci/node:8.9.1
     steps:
       - attach_workspace:
           at: ~/build
