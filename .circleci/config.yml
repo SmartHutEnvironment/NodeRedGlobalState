@@ -21,7 +21,7 @@ jobs:
       - image: circleci/node:8.9.1
     steps:
       - attach_workspace:
-          at: ~/build
+          at: ~
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/lib/.npmrc
