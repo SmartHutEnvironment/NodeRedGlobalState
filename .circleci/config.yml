@@ -6,8 +6,9 @@ jobs:
   build:
     machine: true
     steps:
+      - run: mkdir -p /tmp/build && cd /tmp/build
       - checkout
-      - run: docker run --name tmp -v `pwd`:/data kezziny/node-red-module-generator:latest
+      - run: docker run --name tmp -v /tmp/build:/data kezziny/node-red-module-generator:latest
   integration:
     machine: true
     steps:
