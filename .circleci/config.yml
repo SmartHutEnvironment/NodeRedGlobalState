@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run: docker run --name tmp -v $(pwd)/template:/data kezziny/node-red-module-generator:latest
       - persist_to_workspace:
-          root: ./template
+          root: template
           paths: lib
   integration:
     machine: true
