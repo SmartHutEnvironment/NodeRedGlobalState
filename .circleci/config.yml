@@ -34,15 +34,12 @@ workflows:
   integrate:
     jobs:
       - build:
+      - start_integration:
+          type: approval
           filters:
               branches:
                 ignore:
                   - master
-      - deploy:
-          requires:
-            - build
-      - start_integration:
-          type: approval
       - integration:
           requires:
             - start_integration
@@ -51,3 +48,12 @@ workflows:
             branches:
               ignore:
                 - master
+      - start_deploy:
+          type: approval
+          filters:
+              branches:
+                only:
+                  - master
+      - deploy:
+          requires:
+            - build
