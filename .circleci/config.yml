@@ -33,7 +33,7 @@ workflows:
   version: 2
   integrate:
     jobs:
-      - build:
+      - build
       - start_integration:
           type: approval
           filters:
