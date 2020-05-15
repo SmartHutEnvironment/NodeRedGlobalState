@@ -3,7 +3,7 @@ node:
   name: Device
   category: config
   color: '#FFCC11'
-  onEditSave: function() { this.availableActions = ["a", "b"]; }
+  onEditSave: function() { this.availableActions = ['a', 'b']; }
   properties:
     name:
       label: Name
