@@ -1,6 +1,6 @@
 package:
   name: node-red-global-state
-  version: 1.0.7
+  version: 1.0.8
   description: empty
   author: klein
   dependencies:

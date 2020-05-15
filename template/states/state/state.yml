@@ -4,7 +4,7 @@ node:
   category: config
   color: '#FFCC11'
   onEditSave: function() { this.name = $('#node-input-name').text(); }
-  onEditPrepare: function() { $('#node-config-input-test').change(function() {  var id = $('#node-config-input-test').text(); var node = RED.nodes.node(id); console.log(id, node);  }) }
+  onEditPrepare: function() { $('#node-config-input-test').change(function() {  var id = $('#node-config-input-test').value(); var node = RED.nodes.node(id); console.log(id, node);  }) }
   properties:
     name:
       label: Name
