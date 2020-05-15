@@ -1,0 +1,14 @@
+node:
+  id: fk-device
+  name: Device
+  category: config
+  color: '#FFCC11'
+  onEditSave: function() { this.name = $('#node-input-name').text(); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+  ui:
+    - field: name

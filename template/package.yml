@@ -8,6 +8,7 @@ package:
   homepage: empty
   nodes:
     - from: states/state
+    - from: states/device
     - from: states/mqtt
       to: mqtt
     - from: automation/smartLighting

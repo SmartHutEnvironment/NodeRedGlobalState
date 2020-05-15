@@ -1,4 +1,4 @@
-let base = require("@resource:baseClasses");
+let base = require("../statePrimitives");
 
 class @env:className {
 
