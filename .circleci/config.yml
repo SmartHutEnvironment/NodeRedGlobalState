@@ -31,29 +31,25 @@ jobs:
           command: cd ~/build/lib && npm publish
 workflows:
   version: 2
-  integrate:
-    jobs:
-      - build:
-      - start_integration:
-          type: approval
-          filters:
-              branches:
-                ignore:
-                  - master
-      - integration:
-          requires:
-            - start_integration
-            - build
-          filters:
+  jobs:
+    - build:
+    - start_integration:
+        type: approval
+        filters:
             branches:
               ignore:
                 - master
-      - start_deploy:
-          type: approval
-          filters:
-              branches:
-                only:
-                  - master
-      - deploy:
-          requires:
-            - build
+    - integration:
+        requires:
+          - start_integration
+          - build
+    - start_deploy:
+        type: approval
+        filters:
+            branches:
+              only:
+                - master
+    - deploy:
+        requires:
+          - build
+          - start_deploy
