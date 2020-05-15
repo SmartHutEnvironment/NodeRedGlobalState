@@ -3,7 +3,7 @@ let base = require("../statePrimitives");
 class @env:className {
 
 	constructor(config) {
-		RED.nodes.createNode(node, config);
+		RED.nodes.createNode(this, config);
 		this.config = config;
 		
 		this.availableEvents = ["click", "triggered"];
