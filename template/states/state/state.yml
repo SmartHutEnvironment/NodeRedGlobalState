@@ -4,6 +4,7 @@ node:
   category: config
   color: '#FFCC11'
   onEditSave: function() { this.name = $('#node-input-name').text(); }
+  onEditPrepare: function() { $('#node-config-input-test').change(function() {  var id = $('#node-config-input-test').text(); var node = RED.nodes.getNode(id); console.log(id, node, node.availableActions);  }) }
   properties:
     name:
       label: Name
@@ -66,6 +67,11 @@ node:
       default: ""
     toggle:
       label: Toggle
+      input: text
+      default: ""
+    test:
+      label: test
+      type: fk-device
       input: text
       default: ""
   ui:

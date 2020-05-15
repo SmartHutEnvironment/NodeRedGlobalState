@@ -1,6 +1,6 @@
 package:
   name: node-red-global-state
-  version: 1.0.2
+  version: 1.0.3
   description: empty
   author: klein
   dependencies:
@@ -8,6 +8,7 @@ package:
   homepage: empty
   nodes:
     - from: states/state
+    - from: states/device
     - from: states/mqtt
       to: mqtt
     - from: automation/smartLighting
