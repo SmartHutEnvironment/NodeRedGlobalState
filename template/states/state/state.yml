@@ -85,3 +85,4 @@ node:
     - field: allowResetTimer
     - field: initialState
     - field: toggle
+    - field: test
