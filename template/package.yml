@@ -1,6 +1,6 @@
 package:
   name: node-red-global-state
-  version: 1.0.1
+  version: 1.0.2
   description: empty
   author: klein
   dependencies:
@@ -12,7 +12,7 @@ package:
       to: mqtt
     - from: automation/smartLighting
   resources:
-    - id: statePrimitives
+    - id: baseClasses
       from: states/statePrimitives.js
     - id: extractStates
       from: states/extractStates.js
