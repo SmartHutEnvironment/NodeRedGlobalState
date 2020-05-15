@@ -36,14 +36,19 @@ workflows:
       - build
       - start_integration:
           type: approval
+          requires:
+            - build
           filters:
               branches:
                 ignore:
                   - master
       - integration:
+          filters:
+              branches:
+                ignore:
+                  - master
           requires:
             - start_integration
-            - build
       - start_deploy:
           type: approval
           filters:
@@ -51,6 +56,10 @@ workflows:
                 only:
                   - master
       - deploy:
+          filters:
+              branches:
+                only:
+                  - master
           requires:
             - build
             - start_deploy
