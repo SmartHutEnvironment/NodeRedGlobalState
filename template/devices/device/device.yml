@@ -4,7 +4,7 @@ node:
   category: config
   color: '#FFCC11'
   onEditSave: function() { updateDeviceCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
-  onEditPrepare: function() { fillDeviceTypeOptions($('#node-config-input-deviceType'), this.type); }
+  onEditPrepare: function() { fillDeviceTypeOptions($('#node-config-input-deviceType'), this.deviceType); }
   properties:
     name:
       label: Name

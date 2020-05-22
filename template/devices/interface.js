@@ -1,35 +1,40 @@
 if (typeof DataType === "undefined")
 {
 	var DataType = {
-		Signal: { label: "signal" },
-		State: { label: 'state' },
-		Percent: { label: 'percent' },
-		Number: { label: 'number' }
+		Signal: 	{ label: "Signal" },
+		State: 		{ label: 'State' },
+		Percent: 	{ label: 'Percent' },
+		Number: 	{ label: 'Number' }
 	};	
 }
 
 if (typeof Trigger === "undefined")
 {
 	var Trigger = {
-		Click: { label: "Click", id: "click", type: "signal" },
-		DoubleClick: { label: "Double click", id: "doubleClick", type: "signal" },
-		LeftClick: { label: "Left click", id: "leftClick", type: "signal" },
-		LeftDoubleClick: { label: "Left double click", id: "leftDoubleClick", type: "signal" },
-		RightClick: { label: "Right click", id: "rightClick", type: "signal" },
-		RightDoubleClick: { label: "Right double click", id: "rightDoubleClick", type: "signal" },
+		/* States */
+		State: 				{ id: "state",				label: "State", 			source: 'state', 		type: DataType.State, 	map: { "ON": true, "OFF": false} },
+		StateOn: 			{ id: "on", 				label: "On", 				source: 'state', 		type: DataType.Signal, 	map: { "ON": true } },
+		StateOff: 			{ id: "off", 				label: "Off", 				source: 'state', 		type: DataType.Signal, 	map: { "OFF": false } },
 
-		State: { label: "State", id: "state", type: "state" },
-		StateOn: { label: "On", id: "on", type: "signal" },
-		StateOff: { label: "Off", id: "off", type: "signal" },
+		StateLeft: 			{ id: "left state",			label: "Left state", 		source: 'state_left', 	type: DataType.State, 	map: { "ON": true, "OFF": false} },
+		StateLeftOn: 		{ id: "left on", 			label: "Left on", 			source: 'state_left', 	type: DataType.Signal, 	map: { "ON": true } },
+		StateLeftOff: 		{ id: "left off", 			label: "Left off", 			source: 'state_left', 	type: DataType.Signal, 	map: { "OFF": false } },
 
-		LeftState: { label: "Left state", id: "leftState", type: "state" },
-		LeftStateOn: { label: "Left state on", id: "leftOn", type: "signal" },
-		LeftStateOff: { label: "Left state off", id: "leftOff", type: "signal" },
+		StateLeft: 			{ id: "right state",		label: "Right state", 		source: 'state_left', 	type: DataType.State, 	map: { "ON": true, "OFF": false} },
+		StateLeftOn: 		{ id: "right on", 			label: "Right on", 			source: 'state_left', 	type: DataType.Signal, 	map: { "ON": true } },
+		StateLeftOff: 		{ id: "right off",			label: "Right off", 		source: 'state_left', 	type: DataType.Signal, 	map: { "OFF": false } },
 
-		RightState: { label: "Right state", id: "rightState", type: "state" },
-		RightStateOn: { label: "Right state on", id: "rightOn", type: "signal" },
-		RightStateOff: { label: "Right state off", id: "rightOff", type: "signal" },
-	};
+
+		/* Clicks */
+		Click: 				{ id: "click", 				label: "Click", 			source: 'click', 		type: DataType.Signal,	map: { "single": true } },
+		DoubleClick: 		{ id: "double click", 		label: "Double click", 		source: 'click', 		type: DataType.Signal, 	map: { "double": true } },
+
+		LeftClick: 			{ id: "left click", 		label: "Left click", 		source: 'click_left', 	type: DataType.Signal,	map: { "single": true } },
+		LeftDoubleClick: 	{ id: "left double click", 	label: "Left double click", source: 'click_left', 	type: DataType.Signal, 	map: { "double": true } },
+
+		RightClick: 		{ id: "right click", 		label: "Right click", 		source: 'click_right', 	type: DataType.Signal, 	map: { "single": true } },
+		RightDoubleClick: 	{ id: "right double click", label: "Right double click",source: 'click_right', 	type: DataType.Signal, 	map: { "double": true } },
+	}
 }
 
 if(typeof Action === "undefined")
@@ -59,73 +64,60 @@ if(typeof Action === "undefined")
 
 if(typeof deviceDescriptors === "undefined")
 {
-	console.log("create device descriptors");
-	var deviceDescriptors = {
-		'motion sensor': {
-			Name: "Motion sensor",
-			Type: "common",
+	var deviceDescriptors = {};
+	deviceDescriptors['motion sensor'] = { Name: "Motion sensor", Type: "common", Actions: {},
 			Triggers: {
-				"state": { label: "State", source: 'occupancy', map: null },
-				"on": { label: "On", source: 'occupancy', map: { true: true } },
-				"off": { label: "Off", source: 'occupancy', map: { false: false } },
-			},
-			Actions: {},
-		},
-		'door sensor': {
-			Name: "Door-window sensor",
-			Type: "common",
-			Triggers: {
-				"state": { label: "State", source: 'contact', map: null },
-				"on": { label: "On", source: 'contact', map: { true: true } },
-				"off": { label: "Off", source: 'contact', map: { false: false } },
-			},
-			Actions: {},
-		},
-		'button - single': {
-			Name: "Button",
-			Type: "common",
-			Triggers: {
-				"click": { label: "Click", source: 'click', map: { "single": true } },
-				"double click": { label: "Double click", source: 'click', map: { "double": true } },
-			},
-			Actions: {},
-		},
-		'button - double': {
-			Name: "Button (double)",
-			Type: "common",
-			Triggers: {
-				"left click": { label: "Left click", source: 'click_left', map: { "single": true } },
-				"left double click": { label: "Left double click", source: 'click_left', map: { "double": true } },
+				"state": 	Object.assign({}, Trigger.State, 	{ source: 'occupancy', map: null }),
+				"on": 		Object.assign({}, Trigger.StateOn, 	{ source: 'occupancy', map: { true: true } }),
+				"off": 		Object.assign({}, Trigger.StateOff, { source: 'occupancy', map: { false: false } }),
+			}
+	};
 
-				"right click": { label: "Right click", source: 'click_right', map: { "single": true } },
-				"right double click": { label: "Right double click", source: 'click_right', map: { "double": true } },		
-			},
-			Actions: {},
-		},
-		'switch - single': {
-			Name: "Wall switch (single)",
-			Type: "state",
+	deviceDescriptors['door sensor'] = { Name: "Door-window sensor", Type: "common", Actions: {},
 			Triggers: {
-				"click": { label: "Click", source: 'click', map: { "single": true } },
-				"double click": { label: "Double click", source: 'click', map: { "double": true } },
-			},
+				"state": 	Object.assign({}, Trigger.State, 	{ source: 'contact', map: null }),
+				"on": 		Object.assign({}, Trigger.StateOn, 	{ source: 'contact', map: { true: true } }),
+				"off": 		Object.assign({}, Trigger.StateOff, { source: 'contact', map: { false: false } }),
+			}
+	};
+
+	deviceDescriptors['button - single'] = { Name: "Button", Type: "common", Actions: {},
+			Triggers: { "click": 	Trigger.Click, "double click": Trigger.DoubleClick }
+	};
+
+	deviceDescriptors['button - double'] = { Name: "Button (double)", Type: "common", Actions: {},
+			Triggers: {
+				"left click": Trigger.LeftClick,
+				"left double click": Trigger.LeftDoubleClick,
+
+				"right click": Trigger.RightClick,
+				"right double click": Trigger.RightDoubleClick,		
+			}
+	};
+
+	deviceDescriptors['switch - single'] = { Name: "Wall switch (single)", Type: "state", 
+			Triggers: Object.assign({}, deviceDescriptors["button - single"].Triggers, {
+				"state": 		Trigger.State,
+				"on": 			Trigger.StateOn,
+				"off": 			Trigger.StateOff,
+			}),
 			Actions: {
 				"on": { label: "On" },
 				"off": { label: "Off" },
 				"toggle": { label: "Toggle" },
 				"set": { label: "Set" },
 			}
-		},
-		'switch - double': {
-			Name: "Wall switch (double)",
-			Type: "double state",
-			Triggers: {
-				"left click": { label: "Left click", source: 'click_left', map: { "single": true } },
-				"left double click": { label: "Left double click", source: 'click_left', map: { "double": true } },
+	};
 
-				"right click": { label: "Right click", source: 'click_right', map: { "single": true } },
-				"right double click": { label: "Right double click", source: 'click_right', map: { "double": true } },		
-			},
+	deviceDescriptors['switch - double'] = { Name: "Wall switch (double)", Type: "double state", 
+			Triggers: Object.assign({}, deviceDescriptors["button - double"].Triggers, {
+				"left state": Trigger.StateLeft,
+				"left on": Trigger.StateLeftOn,
+				"left off": Trigger.StateLeftOff,
+				"right state": Trigger.StateRight,
+				"right on": Trigger.StateRightOn,
+				"right off": Trigger.StateRightOff,	
+			}),
 			Actions: {
 				"leftOn": { label: "Left on" },
 				"leftOff": { label: "Left off" },
@@ -136,7 +128,16 @@ if(typeof deviceDescriptors === "undefined")
 				"rightOff": { label: "Right off" },
 				"rightToggle": { label: "Right toggle" },
 				"rightSet": { label: "Right set" },
-			},
-		},
+			}
 	};
+
+	deviceDescriptors['virtual'] = { Name: "Virtual device", Type: "virtual",
+			Triggers: {
+				"state": 		Trigger.State,
+				"on": 			Trigger.StateOn,
+				"off": 			Trigger.StateOff,
+			},
+			Actions: deviceDescriptors["switch - single"].Actions
+	};
+
 }

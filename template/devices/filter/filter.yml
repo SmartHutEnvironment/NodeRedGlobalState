@@ -1,0 +1,34 @@
+node:
+  id: fk-device-filter
+  name: Filter
+  category: Device
+  color: '#FFCC11'
+  inputs: 1
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareStateFields(this, $('#node-input-device'), $('#node-input-action')); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    state:
+      label: State
+      input: enum
+      options:
+        - <SELECT DEVICE>
+      default: <SELECT DEVICE>
+  ui:
+    - field: name
+    - field: room
+    - field: device
+    - field: state

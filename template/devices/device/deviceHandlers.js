@@ -1,21 +1,5 @@
 let events = require('events');
 
-let Events = {
-	Motion: 1,
-	Click: 2,
-	DoubleClick: 3,
-	LongClick: 4,
-	LeftClick: 5, 
-	LeftDoubleClick: 6,
-	LeftLongClick: 7,
-	RightClick: 8,
-	RightDoubleClick: 9,
-	RightLongClick: 10,
-	State: 11,
-	LeftState: 12,
-	RightState: 13
-}
-
 class DeviceHandler extends events.EventEmitter
 {
 	constructor(mqtt, topic, triggers)
@@ -25,8 +9,10 @@ class DeviceHandler extends events.EventEmitter
 		this.Topic = topic;
 		this.Triggers = triggers;
 		this.Actions = {};
+		this.Properties = {};
 
-		this.Mqtt.subscribe(this.Topic, this.onMqttReceive.bind(this));
+		if (this.Topic !== null)
+			this.Mqtt.subscribe(this.Topic, this.onMqttReceive.bind(this));
 	}
 
 	onMqttReceive(data)
@@ -37,11 +23,16 @@ class DeviceHandler extends events.EventEmitter
 
 			let trigger = this.Triggers[key];
 			
-			this.ExtractData(data, trigger.source, key, trigger.map);
+			let value = this.ExtractData(data, trigger.source, key, trigger.map);
+
+			if (trigger.type !== DataType.Signal)
+			{
+				this.Properties[trigger.id] = value;
+			}
 		}
 	}
 
-	ExtractData(data, key, name = null, map = {"ON": true, "OFF": false})
+	ExtractData(data, key, name = null, map)
 	{
 		if (!data.hasOwnProperty(key)) return;
 		let value = data[key];
@@ -52,6 +43,8 @@ class DeviceHandler extends events.EventEmitter
 		} 
 		
 		this.emit(name, value);
+
+		return value;
 	}
 
 	do(action, msg)
@@ -63,18 +56,27 @@ class DeviceHandler extends events.EventEmitter
 
 		this.Actions[action](msg);
 	}
+
+	get(state)
+	{
+		if (this.Properties.hasOwnProperty(state))
+		{
+			return this.Properties[state];
+		}
+
+		return null;
+	}
 }
 
 class Timeout extends events.EventEmitter
 {
-	constructor(timeout, timerTimeout, on, off)
+	constructor(timeout, on, off)
 	{
 		super();
 		
 		this.on = on;
 		this.off = off;
 		this.timeout = timeout;
-		this.timerTimeout = timerTimeout;
 
 		this.timer = null;
 	}
@@ -106,16 +108,6 @@ class Timeout extends events.EventEmitter
 			this.Start();
 	}
 
-	On()
-	{
-
-	}
-
-	Off()
-	{
-
-	}
-
 	onTimeout()
 	{
 		this.timer = null;
@@ -123,15 +115,35 @@ class Timeout extends events.EventEmitter
 	}
 }
 
-
-class StatedDeviceHandler extends DeviceHandler
+class VirtualDeviceHandler extends DeviceHandler
 {
 	constructor(mqtt, topic, triggers, timeout)
 	{
 		super(mqtt, topic, triggers);
 
+		this.Timer = new Timeout(timeout,
+				() => { this.onMqttReceive({state: "ON"}); }, 
+				() => { this.onMqttReceive({state: "OFF"}); } 
+		);
+
+		this.Actions = {
+			"set": (msg) => { if (msg.payload) this.Timer.Start(); else this.Timer.Stop(); },
+			"on": (msg) => { this.Timer.Start(); },
+			"off": (msg) => { this.Timer.Stop(); },
+			"toggle": (msg) => { this.Timer.Toggle(); }
+		};
 		
-		this.Timer = new Timeout(timeout, 0, 
+	}
+}
+
+class StatedDeviceHandler extends DeviceHandler
+{
+	constructor(mqtt, topic, triggers, timeout)
+	{
+		super(mqtt, null, triggers);
+
+		
+		this.Timer = new Timeout(timeout,
 				() => { this.Mqtt.publish(this.Topic + "/set", { state: "ON" })}, 
 				() => { this.Mqtt.publish(this.Topic + "/set", { state: "OFF" })} 
 		);
@@ -154,12 +166,12 @@ class DoubleStatedDeviceHandler extends DeviceHandler
 		super(mqtt, topic, triggers);
 
 		
-		this.TimerLeft = new Timeout(timeout, 0, 
+		this.TimerLeft = new Timeout(timeout,
 				() => { this.Mqtt.publish(this.Topic + "/set", { state_left: "ON" })}, 
 				() => { this.Mqtt.publish(this.Topic + "/set", { state_left: "OFF" })} 
 		);
 
-		this.TimerRight = new Timeout(timeout, 0, 
+		this.TimerRight = new Timeout(timeout,
 				() => { this.Mqtt.publish(this.Topic + "/set", { state_right: "ON" })}, 
 				() => { this.Mqtt.publish(this.Topic + "/set", { state_right: "OFF" })} 
 		);
@@ -179,4 +191,4 @@ class DoubleStatedDeviceHandler extends DeviceHandler
 	}
 }
 
-module.exports = { DeviceHandler, StatedDeviceHandler, DoubleStatedDeviceHandler };
+module.exports = { DeviceHandler, StatedDeviceHandler, DoubleStatedDeviceHandler, VirtualDeviceHandler };
