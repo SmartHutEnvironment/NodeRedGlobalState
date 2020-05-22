@@ -3,7 +3,8 @@ node:
   name: function () { if (this.name) return this.name; else return 'New device'; }
   category: config
   color: '#FFCC11'
-  onEditSave: function() { updateCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
+  onEditSave: function() { updateDeviceCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
+  onEditPrepare: function() { fillDeviceTypeOptions($('#node-config-input-deviceType'), this.type); }
   properties:
     name:
       label: Name
@@ -20,20 +21,28 @@ node:
       input: text
       required: true
       default: "device_id"
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
     deviceType:
       label: Type
       input: enum
       options:
-        - Button - single
-        - Button - double
-        - Switch - single
-        - Switch - double
-        - Motion sensor
-      default: Switch - single
+        - INIT
     triggers:
       label: hidden
+    actions:
+      label: hidden
+    timeout:
+      label: Timeout
+      input: text
+      default: 180
   ui:
     - field: name
     - field: mqtt
     - field: topic
+    - field: room
     - field: deviceType
+    - field: timeout

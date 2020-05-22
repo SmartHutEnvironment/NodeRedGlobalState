@@ -1,0 +1,15 @@
+node:
+  id: fk-device-converter-delay
+  name: Converter delay
+  category: Trigger converter
+  color: '#FFCC11'
+  inputs: 1
+  onEditPrepare: function() { prepareControlFields(this, $('#node-input-device'), $('#node-input-control')); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+  ui:
+    - field: name

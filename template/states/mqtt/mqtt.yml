@@ -19,7 +19,13 @@ node:
       input: text
       required: true
       default: "1880"
+    prefix:
+      label: Prefix
+      input: text
+      required: true
+      default: ""
   ui:
     - field: name
     - field: host
     - field: port
+    - field: prefix

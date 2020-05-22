@@ -1,0 +1,32 @@
+node:
+  id: fk-device-trigger
+  name: function() { if (this.name) return this.name; else return 'Device trigger'; }
+  paletteLabel: Trigger
+  category: Device
+  color: '#FFCC11'
+  outputs: 1
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareTriggerFields(this, $('#node-input-device'), $('#node-input-trigger')); }
+  onEditSave: function() { this.name = $('#node-input-device option:selected').text() + ' - ' + $('#node-input-trigger option:selected').text(); }
+  properties:
+    name:
+      label: hidden
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    trigger:
+      label: Trigger
+      input: enum
+      options:
+        - SELECT DEVICE
+      default: SELECT DEVICE
+  ui:
+    - field: room
+    - field: device
+    - field: trigger

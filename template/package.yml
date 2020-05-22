@@ -7,13 +7,18 @@ package:
     mqtt: 3.0.0
   homepage: empty
   nodes:
-    - from: states/state
-    - from: states/device
     - from: states/mqtt
       to: mqtt
-    - from: automation/smartLighting
+    - from: devices/device
+    - from: devices/trigger
+    - from: devices/action
+    - from: devices/converter
+    - from: states/state
+    - from: room
   resources:
     - id: baseClasses
       from: states/statePrimitives.js
     - id: extractStates
       from: states/extractStates.js
+    - id: deviceHandlers
+      from: devices/device/deviceHandlers.js

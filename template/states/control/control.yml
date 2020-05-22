@@ -1,0 +1,28 @@
+node:
+  id: fk-device-control
+  name: Device control
+  category: Device
+  color: '#FFCC11'
+  inputs: 1
+  onEditPrepare: function() { prepareControlFields(this, $('#node-input-device'), $('#node-input-control')); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    control:
+      label: Control
+      input: enum
+      options:
+        - <SELECT DEVICE>
+      default: <SELECT DEVICE>
+  ui:
+    - field: name
+    - field: device
+    - field: control

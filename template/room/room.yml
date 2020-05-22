@@ -1,0 +1,20 @@
+node:
+  id: fk-room
+  name: function () { if (this.name) return this.name; else return 'New room'; }
+  category: config
+  color: '#FFCC11'
+  onEditSave: function() { this.name = $('#node-input-name').text(); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    prefix:
+      label: Prefix
+      input: text
+      required: true
+      default: ""
+  ui:
+    - field: name
+    - field: prefix
