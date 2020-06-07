@@ -25,6 +25,8 @@ class @env:className {
 			case "common": this.handler = new base.DeviceHandler(this.mqtt, config.topic, descriptor.Triggers); break;
 			case "state": this.handler = new base.StatedDeviceHandler(this.mqtt, config.topic, descriptor.Triggers, config.timeout); break;
 			case "double state": this.handler = new base.DoubleStatedDeviceHandler(this.mqtt, config.topic, descriptor.Triggers, config.timeout); break;
+			case "ceilinglight": this.handler = new base.CeilingLight(this.mqtt, config.topic, descriptor.Triggers, config.timeout); break;
+			case "virtual": this.handler = new base.VirtualDeviceHandler(this.mqtt, config.topic, descriptor.Triggers, config.timeout); break;
 			default: this.error("Invalid device class: " + descriptor.Type);
 		}
 

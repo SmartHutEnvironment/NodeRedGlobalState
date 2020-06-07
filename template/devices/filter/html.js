@@ -1,4 +1,4 @@
-function prepareFilterFields(o, device, control)
+function prepareStateFields(o, device, control)
 {
 	source = null;
 
@@ -8,7 +8,7 @@ function prepareFilterFields(o, device, control)
 		let node = RED.nodes.node(id);
 		console.log(id, node);
 		if (node === null) return;
-		updateOptionsFilter(control, node.actions, null);
+		updateOptionsFilter(control, node.triggers, null);
 	});
 
 	RED.nodes.eachLink(link => {
@@ -26,7 +26,7 @@ function prepareFilterFields(o, device, control)
 		let node = RED.nodes.node(id);
 		if (node === null) return;
 
-		updateOptionsFilter(control, node.actions, null);
+		updateOptionsFilter(control, node.triggers, null);
 	}
 	else
 	{
@@ -64,7 +64,8 @@ function updateOptionsFilter(field, options, selected)
 {
 	field.empty();
 	$.each(options, (key, source) => {
-		if (source.type == DeviceType.Signal) continue;
+		console.log(source, source.type.label);
+		if (source.type.label === "Signal") { console.log("skip"); return; }
 		let option = $("<option></option>");
 		option.attr("value", key).text(source.label);
 

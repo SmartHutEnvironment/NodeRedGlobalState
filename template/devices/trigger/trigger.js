@@ -7,7 +7,6 @@ class @env:className {
 		
 		this.device = RED.nodes.getNode(config.device);
 
-		console.log("Subscribe trigger to ", config.trigger);
 		this.device.handler.on(config.trigger, (value) => { this.send( {'payload': value} ) });
 	}
 }

@@ -22,3 +22,15 @@ function fillDeviceTypeOptions(field, selected)
 		field.append( option );
 	});
 }
+
+function prepareEditableList(list)
+{
+	list.editableList({
+		addButton: false,
+		addItem: function(row, index, data) {
+			$(row).html("Item "+ data.key + "<input type=text value='"+data.value+"'/>");
+		}
+	});
+
+	list.editableList('addItems', [{key: "key", value: "value"}, {key: "key2", value: "value2"}]);
+}

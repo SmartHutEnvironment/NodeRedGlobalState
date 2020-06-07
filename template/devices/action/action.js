@@ -9,6 +9,7 @@ class @env:className {
 		
 		this.on('input', function(msg) {
 			this.device.handler.do(this.config.action, msg);
+			this.send({payload: true});
 		});
 	}
 }

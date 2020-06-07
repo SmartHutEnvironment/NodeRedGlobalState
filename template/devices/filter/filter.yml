@@ -1,10 +1,12 @@
 node:
   id: fk-device-filter
-  name: Filter
+  name: function() { if (this.name) return this.name; else return 'Filter'; }
+  paletteLabel: State filter
   category: Device
-  color: '#FFCC11'
+  color: '#FFCC88'
   inputs: 1
-  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareStateFields(this, $('#node-input-device'), $('#node-input-action')); }
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareStateFields(this, $('#node-input-device'), $('#node-input-state')); }
+  onEditSave: function() { this.name = '[' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-state option:selected').text() + ')'; }
   properties:
     name:
       label: Name
@@ -28,7 +30,6 @@ node:
         - <SELECT DEVICE>
       default: <SELECT DEVICE>
   ui:
-    - field: name
     - field: room
     - field: device
     - field: state

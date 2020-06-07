@@ -15,6 +15,12 @@ node:
       input: text
       required: true
       default: ""
+    color:
+      label: Color
+      input: text
+      required: true
+      default: "#FFCC88"
   ui:
     - field: name
     - field: prefix
+    - field: color

@@ -20,20 +20,28 @@ if (typeof Trigger === "undefined")
 		StateLeftOn: 		{ id: "left on", 			label: "Left on", 			source: 'state_left', 	type: DataType.Signal, 	map: { "ON": true } },
 		StateLeftOff: 		{ id: "left off", 			label: "Left off", 			source: 'state_left', 	type: DataType.Signal, 	map: { "OFF": false } },
 
-		StateLeft: 			{ id: "right state",		label: "Right state", 		source: 'state_left', 	type: DataType.State, 	map: { "ON": true, "OFF": false} },
-		StateLeftOn: 		{ id: "right on", 			label: "Right on", 			source: 'state_left', 	type: DataType.Signal, 	map: { "ON": true } },
-		StateLeftOff: 		{ id: "right off",			label: "Right off", 		source: 'state_left', 	type: DataType.Signal, 	map: { "OFF": false } },
+		StateRight: 		{ id: "right state",		label: "Right state", 		source: 'state_left', 	type: DataType.State, 	map: { "ON": true, "OFF": false} },
+		StateRightOn: 		{ id: "right on", 			label: "Right on", 			source: 'state_left', 	type: DataType.Signal, 	map: { "ON": true } },
+		StateRightOff: 		{ id: "right off",			label: "Right off", 		source: 'state_left', 	type: DataType.Signal, 	map: { "OFF": false } },
 
 
 		/* Clicks */
 		Click: 				{ id: "click", 				label: "Click", 			source: 'click', 		type: DataType.Signal,	map: { "single": true } },
 		DoubleClick: 		{ id: "double click", 		label: "Double click", 		source: 'click', 		type: DataType.Signal, 	map: { "double": true } },
 
-		LeftClick: 			{ id: "left click", 		label: "Left click", 		source: 'click_left', 	type: DataType.Signal,	map: { "single": true } },
-		LeftDoubleClick: 	{ id: "left double click", 	label: "Left double click", source: 'click_left', 	type: DataType.Signal, 	map: { "double": true } },
+		LeftClick: 			{ id: "left click", 		label: "Left click", 		source: 'click', 		type: DataType.Signal,	map: { "left": true } },
+		LeftDoubleClick: 	{ id: "left double click", 	label: "Left double click", source: 'click', 		type: DataType.Signal, 	map: { "double": true } },
 
-		RightClick: 		{ id: "right click", 		label: "Right click", 		source: 'click_right', 	type: DataType.Signal, 	map: { "single": true } },
-		RightDoubleClick: 	{ id: "right double click", label: "Right double click",source: 'click_right', 	type: DataType.Signal, 	map: { "double": true } },
+		RightClick: 		{ id: "right click", 		label: "Right click", 		source: 'click', 		type: DataType.Signal, 	map: { "right": true } },
+		RightDoubleClick: 	{ id: "right double click", label: "Right double click",source: 'click', 		type: DataType.Signal, 	map: { "double": true } },
+
+		/* connection */
+		Connected: 			{ id: "connected",			label: "Connected", 		source: 'connection', 	type: DataType.Signal, 	map: { "ON": true} },
+		Disconnected:		{ id: "disconnected",		label: "Disconnected",		source: 'connection',	type: DataType.Signal, 	map: { "OFF": false} },
+
+		Color: 				{ id: "color",				label: "Color", 			source: 'color', 		type: DataType.Number, 	map: null },
+		Brightness:			{ id: "brightness",			label: "Brightness",		source: 'brightness',	type: DataType.Number, 	map: null },
+
 	}
 }
 
@@ -128,6 +136,30 @@ if(typeof deviceDescriptors === "undefined")
 				"rightOff": { label: "Right off" },
 				"rightToggle": { label: "Right toggle" },
 				"rightSet": { label: "Right set" },
+			}
+	};
+
+	deviceDescriptors['ceiling light'] = { Name: "Ceiling light", Type: "ceilinglight", 
+			Triggers: {
+				"state": 		Trigger.State,
+				"on": 			Trigger.StateOn,
+				"off": 			Trigger.StateOff,
+				"connected":	Trigger.Connected,
+				"disconnected":	Trigger.Disconnected,
+				"color":		Trigger.Color,
+				"brightness":	Trigger.Brightness,
+			},
+			Actions: {
+				"on": { label: "On" },
+				"off": { label: "Off" },
+				"toggle": { label: "Toggle" },
+				"set": { label: "Set state to" },
+
+				"moonlight": { label: "Moonlight" },
+				"normallight": { label: "Normal light" },
+
+				"setbrightness": { label: "Set brightness to" },
+				"setcolor": { label: "Set color to" },
 			}
 	};
 

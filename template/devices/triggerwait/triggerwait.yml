@@ -1,13 +1,14 @@
 node:
-  id: fk-device-trigger
+  id: fk-device-trigger-wait
   name: function() { if (this.name) return this.name; else return 'Device trigger'; }
-  paletteLabel: Trigger
+  paletteLabel: Trigger wait
   icon: font-awesome/fa-wifi
   category: Device
   color: '#FFCC11'
   outputs: 1
+  inputs: 1
   onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareTriggerFields(this, $('#node-input-device'), $('#node-input-trigger')); }
-  onEditSave: function() { this.name = '[' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-trigger option:selected').text() + ')'; saveTriggerColor(this, $('#node-input-room')); }
+  onEditSave: function() { this.name = 'Wait [' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-trigger option:selected').text() + ')'; saveTriggerColor(this, $('#node-input-room')); }
   properties:
     name:
       label: hidden

@@ -4,7 +4,7 @@ node:
   category: config
   color: '#FFCC11'
   onEditSave: function() { updateDeviceCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
-  onEditPrepare: function() { fillDeviceTypeOptions($('#node-config-input-deviceType'), this.deviceType); }
+  onEditPrepare: function() { prepareEditableList($('#node-config-input-params')); fillDeviceTypeOptions($('#node-config-input-deviceType'), this.deviceType); }
   properties:
     name:
       label: Name
@@ -31,6 +31,9 @@ node:
       input: enum
       options:
         - INIT
+    params:
+      label: Params
+      input: list
     triggers:
       label: hidden
     actions:
@@ -45,4 +48,5 @@ node:
     - field: topic
     - field: room
     - field: deviceType
+    - field: params
     - field: timeout

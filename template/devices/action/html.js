@@ -75,3 +75,12 @@ function updateOptions(field, options, selected)
 		field.append( option );
 	});
 }
+
+function saveActionColor(obj, roomInput)
+{
+	console.log("Save color info");
+	let id = roomInput.val(); 
+	let room = RED.nodes.node(id);
+	obj.color = room.color;
+	console.log("set color", obj, room.color);
+}

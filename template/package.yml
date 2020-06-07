@@ -1,6 +1,6 @@
 package:
   name: node-red-global-state
-  version: 1.0.9
+  version: 1.0.10
   description: empty
   author: klein
   dependencies:
@@ -11,6 +11,7 @@ package:
       to: mqtt
     - from: devices/device
     - from: devices/trigger
+    - from: devices/triggerwait
     - from: devices/filter
     - from: devices/action
     - from: devices/converter
