@@ -23,7 +23,9 @@ class @env:className {
 		RED.nodes.createNode(node, config);
 		let globalContext = node.context().global;
 		node.config = config;
-				node.connection = mqtt.connect(config.host);
+		node.prefix = config.prefix;
+
+		node.connection = mqtt.connect(config.host);
 		node.callbacks = {};
 		node.connection.on('message', function(topic, data){
 		    console.log("new mqtt msg", topic);
@@ -44,13 +46,15 @@ class @env:className {
 	publish(topic, data)
 	{
 	    let node = this;
-	    node.connection.publish(topic, JSON.stringify(data));
+	    node.connection.publish(node.prefix + topic, JSON.stringify(data));
 	}
 	
 	subscribe(topic, callback)
 	{
+		let node = this;
+		topic = node.prefix + topic;
 	    console.log("Subscribe to", topic);
-	    let node = this;
+	    
 	
 	    if (!node.callbacks.hasOwnProperty(topic))
 	    {

@@ -1,0 +1,28 @@
+node:
+  id: fk-device-trigger
+  name: Device trigger
+  category: Device
+  color: '#FFCC11'
+  outputs: 1
+  onEditPrepare: function() { prepareTriggerFields(this, $('#node-input-device'), $('#node-input-trigger')); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    trigger:
+      label: Trigger
+      input: enum
+      options:
+        - SELECT DEVICE
+      default: SELECT DEVICE
+  ui:
+    - field: name
+    - field: device
+    - field: trigger

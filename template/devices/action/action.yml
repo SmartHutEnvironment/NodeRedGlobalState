@@ -1,0 +1,37 @@
+node:
+  id: fk-device-action
+  name: function() { if (this.name) return this.name; else return 'Device action'; }
+  paletteLabel: Action
+  icon: font-awesome/fa-chain
+  category: Device
+  color: '#FFCC11'
+  inputs: 1
+  outputs: 1
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareActionFields(this, $('#node-input-device'), $('#node-input-action')); }
+  onEditSave: function() { this.name = '[' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-action option:selected').text() + ')'; saveTriggerColor(this, $('#node-input-room')); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    action:
+      label: Action
+      input: enum
+      options:
+        - <SELECT DEVICE>
+      default: <SELECT DEVICE>
+  ui:
+    - field: room
+    - field: device
+    - field: action

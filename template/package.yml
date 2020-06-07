@@ -1,19 +1,26 @@
 package:
   name: node-red-global-state
-  version: 1.0.9
+  version: 1.0.10
   description: empty
   author: klein
   dependencies:
     mqtt: 3.0.0
   homepage: empty
   nodes:
-    - from: states/state
-    - from: states/device
     - from: states/mqtt
       to: mqtt
-    - from: automation/smartLighting
+    - from: devices/device
+    - from: devices/trigger
+    - from: devices/triggerwait
+    - from: devices/filter
+    - from: devices/action
+    - from: devices/converter
+    - from: states/state
+    - from: room
   resources:
     - id: baseClasses
       from: states/statePrimitives.js
     - id: extractStates
       from: states/extractStates.js
+    - id: deviceHandlers
+      from: devices/device/deviceHandlers.js

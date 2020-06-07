@@ -1,0 +1,35 @@
+node:
+  id: fk-device-filter
+  name: function() { if (this.name) return this.name; else return 'Filter'; }
+  paletteLabel: State filter
+  category: Device
+  color: '#FFCC88'
+  inputs: 1
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareStateFields(this, $('#node-input-device'), $('#node-input-state')); }
+  onEditSave: function() { this.name = '[' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-state option:selected').text() + ')'; }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    state:
+      label: State
+      input: enum
+      options:
+        - <SELECT DEVICE>
+      default: <SELECT DEVICE>
+  ui:
+    - field: room
+    - field: device
+    - field: state

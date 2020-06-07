@@ -1,0 +1,34 @@
+node:
+  id: fk-device-trigger-wait
+  name: function() { if (this.name) return this.name; else return 'Device trigger'; }
+  paletteLabel: Trigger wait
+  icon: font-awesome/fa-wifi
+  category: Device
+  color: '#FFCC11'
+  outputs: 1
+  inputs: 1
+  onEditPrepare: function() { setupRoomFiltering($('#node-input-room'), $('#node-input-device')); prepareTriggerFields(this, $('#node-input-device'), $('#node-input-trigger')); }
+  onEditSave: function() { this.name = 'Wait [' + $('#node-input-room option:selected').text() + '] / ' + $('#node-input-device option:selected').text() + ' (' + $('#node-input-trigger option:selected').text() + ')'; saveTriggerColor(this, $('#node-input-room')); }
+  properties:
+    name:
+      label: hidden
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    device:
+      label: Device
+      input: text
+      default: ""
+      type: fk-device
+    trigger:
+      label: Trigger
+      input: enum
+      options:
+        - SELECT DEVICE
+      default: SELECT DEVICE
+  ui:
+    - field: room
+    - field: device
+    - field: trigger

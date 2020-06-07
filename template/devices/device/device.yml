@@ -1,0 +1,52 @@
+node:
+  id: fk-device
+  name: function () { if (this.name) return this.name; else return 'New device'; }
+  category: config
+  color: '#FFCC11'
+  onEditSave: function() { updateDeviceCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
+  onEditPrepare: function() { prepareEditableList($('#node-config-input-params')); fillDeviceTypeOptions($('#node-config-input-deviceType'), this.deviceType); }
+  properties:
+    name:
+      label: Name
+      input: text
+      required: true
+      default: ""
+    mqtt:
+      label: Mqtt server
+      input: text
+      default: ""
+      type: fk-mqtt
+    topic:
+      label: Topic
+      input: text
+      required: true
+      default: "device_id"
+    room:
+      label: Room
+      input: text
+      required: true
+      type: fk-room
+    deviceType:
+      label: Type
+      input: enum
+      options:
+        - INIT
+    params:
+      label: Params
+      input: list
+    triggers:
+      label: hidden
+    actions:
+      label: hidden
+    timeout:
+      label: Timeout
+      input: text
+      default: 180
+  ui:
+    - field: name
+    - field: mqtt
+    - field: topic
+    - field: room
+    - field: deviceType
+    - field: params
+    - field: timeout

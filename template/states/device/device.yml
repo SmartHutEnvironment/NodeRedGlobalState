@@ -1,14 +1,39 @@
 node:
   id: fk-device
-  name: Device
+  name: function () { if (this.name) return this.name; else return 'New device'; }
   category: config
   color: '#FFCC11'
-  onEditSave: function() { this.availableActions = ['a', 'b']; }
+  onEditSave: function() { updateCapabilities(this, $('#node-config-input-deviceType').val()); this.name = $('#node-input-name').text(); }
   properties:
     name:
       label: Name
       input: text
       required: true
       default: ""
+    mqtt:
+      label: Mqtt server
+      input: text
+      default: ""
+      type: fk-mqtt
+    topic:
+      label: Topic
+      input: text
+      required: true
+      default: "device_id"
+    deviceType:
+      label: Type
+      input: enum
+      options:
+        - Button - single
+        - Button - double
+        - Switch - single
+        - Switch - double
+        - Motion sensor
+      default: Switch - single
+    triggers:
+      label: hidden
   ui:
     - field: name
+    - field: mqtt
+    - field: topic
+    - field: deviceType
